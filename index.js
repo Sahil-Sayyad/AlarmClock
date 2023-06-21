@@ -5,6 +5,11 @@ var h;
 var m;
 var s;
 var time;
+//Here Used Audio Object For When Alarm Goues Up  
+var sound = new Audio(
+  "https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3"
+);
+sound.loop = true;
 
 /* Here Adding Clock Face Function To Showing Current Time in (Seconds,Mins,Hrs)*/
 let clockFace = () => {
@@ -97,7 +102,6 @@ let setSeconds = () => {
 setSeconds();
 
 //When User Setting Each Alarm They Notified Here
-
 let btn = document.getElementById("button");
 btn.addEventListener("click", () => {
   alert("Alarm Set SuccessFully ");
@@ -113,7 +117,7 @@ let doForm = () => {
   hour = checkTime(hour);
   minutes = checkTime(minutes);
   seconds = checkTime(seconds);
-  //Here Used Global Variable 
+  //Here Used Global Variable
   h = hour;
   m = minutes;
   s = seconds;
@@ -142,7 +146,7 @@ let alertUser = () => {
   let Seconds = now.getSeconds();
   Hour = Hour > 12 ? Hour - 12 : Hour;
   if (Hour == h && Minutes == m && Seconds == s) {
-    alert("Time Out ");
+    sound.play();
   }
   time = setTimeout(() => {
     alertUser();
@@ -150,7 +154,7 @@ let alertUser = () => {
 };
 alertUser();
 
-//Deleting List From Setted Alarm List 
+//Deleting List From Setted Alarm List
 
 let Delete = () => {
   let deleteBtns = document.querySelector(".delete");
@@ -160,6 +164,8 @@ let Delete = () => {
     divs.remove();
     //Here When User Deleting Alarm Then Clearing Alert of That Alarm.
     clearTimeout(time);
+    sound.pause();
+    alert("Alarm Deleted Successfully");
   };
 
   deleteBtns.addEventListener("click", deleteAlarm);
