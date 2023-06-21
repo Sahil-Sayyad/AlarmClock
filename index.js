@@ -4,6 +4,7 @@
 var h;
 var m;
 var s;
+var ap;
 var time;
 //Here Used Audio Object For When Alarm Goues Up  
 var sound = new Audio(
@@ -101,12 +102,23 @@ let setSeconds = () => {
 };
 setSeconds();
 
-//When User Setting Each Alarm They Notified Here
-let btn = document.getElementById("button");
-btn.addEventListener("click", () => {
-  alert("Alarm Set SuccessFully ");
-});
+//Deleting Alarm Here 
+let Delete = () => {
+  let deleteBtns = document.querySelectorAll(".delete");
 
+  let deleteAlarm = (event) => {
+    let deleteBtn = event.target;
+    let deleteDiv = deleteBtn.closest('.deleteDiv');
+    deleteDiv.remove();
+    clearTimeout(time);
+    sound.pause();
+    alert("Alarm Deleted Successfully");
+  };
+
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener("click", deleteAlarm);
+  });
+};
 /*Accessing Form Data And Displaying Alarm List Here */
 let doForm = () => {
   let data = new FormData(document.getElementById("set_Alarm"));
@@ -121,6 +133,7 @@ let doForm = () => {
   h = hour;
   m = minutes;
   s = seconds;
+  ap = am_pm;
   //Here Displaying Alarm List
   let alarmList = document.getElementById("displayAlarmList");
   let Div = document.createElement("div");
@@ -134,9 +147,19 @@ let doForm = () => {
   alarmList.appendChild(Div);
   Div.appendChild(alarmElement);
   Div.appendChild(btnElement);
+
+  let deleteBtn = alarmList.querySelector(".delete");
+  deleteBtn.addEventListener("click", Delete);
   return false;
 };
 doForm();
+Delete();
+
+//When User Setting Each Alarm They Notified Here
+let btn = document.getElementById("button");
+btn.addEventListener("click", () => {
+  alert("Alarm Set SuccessFully ");
+});
 
 //Alerting Here When Alarm  Goes Up
 let alertUser = () => {
@@ -153,24 +176,5 @@ let alertUser = () => {
   }, 1000);
 };
 alertUser();
-
-//Deleting List From Setted Alarm List
-
-let Delete = () => {
-  let deleteBtns = document.querySelector(".delete");
-
-  let deleteAlarm = () => {
-    let divs = document.querySelector(".deleteDiv");
-    divs.remove();
-    //Here When User Deleting Alarm Then Clearing Alert of That Alarm.
-    clearTimeout(time);
-    sound.pause();
-    alert("Alarm Deleted Successfully");
-  };
-
-  deleteBtns.addEventListener("click", deleteAlarm);
-};
-
-Delete();
 
 /* Ends JavaScript Here */
