@@ -26,5 +26,6 @@
 ***
 
 ### ScreenShots
-![](https://raw.github.com/Sahil-Sayyad/blob/main/webCapture.jpeg)
+![webCapture](https://github.com/Sahil-Sayyad/AlarmClock/assets/96423459/cd83d953-2dc9-489f-8011-b31180f77869)
+
 
